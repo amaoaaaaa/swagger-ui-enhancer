@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "AMD",
+        "moduleResolution": "Node",
+        "lib": ["ES2022", "DOM"],
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "sourceMap": false,
+        "esModuleInterop": true,
+        "skipLibCheck": false,
+        "forceConsistentCasingInFileNames": true,
+        "removeComments": false,
+        "rootDir": "./src",
+        "outFile": "./dist/swagger-ui-enhancer.js"
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "**/node_modules/*"]
+}

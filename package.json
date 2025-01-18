@@ -1,0 +1,18 @@
+{
+    "name": "swagger-ui-enhancer",
+    "version": "1.0.0",
+    "description": "一个用户脚本（油猴脚本），用于为Swagger UI接口文档添加辅助功能，如修改Base URL、一键复制请求信息、参数和后端定义的Model等，以提高开发人员的工作效率。",
+    "author": "阿茂一米六",
+    "license": "MIT",
+    "main": "src/index.ts",
+    "type": "module",
+    "scripts": {
+        "dev": "tsc --watch",
+        "build": "tsc"
+    },
+    "devDependencies": {
+        "@types/deep-diff": "^1.0.5",
+        "@types/jquery": "^3.5.32",
+        "typescript": "^5.7.3"
+    }
+}
