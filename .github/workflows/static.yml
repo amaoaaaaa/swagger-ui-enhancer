@@ -1,11 +1,11 @@
 name: 部署静态资源
 
 on:
-  # 当master分支有推送时执行
+  # 当 master 分支有推送时执行
   push:
     branches: ["master"]
     
-  # 允许从“操作”选项卡手动运行此工作流程
+  # 允许手动运行此工作流程
   workflow_dispatch:
 
 # 设置 GITHUB_TOKEN 的权限以允许部署到 GitHub Pages
@@ -19,25 +19,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: 切换分支
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: 设置 Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: 安装依赖
         run: npm install
 
-      # 运行 TypeScript 编译
-      - name: Build TypeScript
+      - name: 运行 TypeScript 编译
         run: npx tsc
+
+      - name: 处理文件
+        run: |
+          mv ./dist/swagger-ui-enhancer.js ./dist/index.js
         
-      - name: Upload
+      - name: 上传文件
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
           
-      - name: Deploy to GitHub Pages
+      - name: 部署到 GitHub Pages
         uses: actions/deploy-pages@v4
