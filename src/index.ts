@@ -4,6 +4,7 @@
 // @version      1.0.0
 // @description  给 Swagger UI 接口文档增加了一些功能，详见 https://github.com/amaoaaaaa/swagger-ui-enhancer/blob/master/README.md
 // @author       阿茂一米六
+// @license MIT
 // @match        *://*/*swagger-ui.html*
 // @icon         https://static1.smartbear.co/swagger/media/assets/swagger_fav.png
 // @require      https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js
