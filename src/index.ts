@@ -9,8 +9,8 @@
 // @require      https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js
 // @require      https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/deep-diff/1.0.2/deep-diff.min.js
 // @grant        none
-// @updateURL    脚本更新地址
-// @downloadURL  脚本下载地址
+// @updateURL    https://amaoaaaaa.github.io/swagger-ui-enhancer/index.js
+// @downloadURL  https://amaoaaaaa.github.io/swagger-ui-enhancer/index.js
 // ==/UserScript==
 
 (function () {
