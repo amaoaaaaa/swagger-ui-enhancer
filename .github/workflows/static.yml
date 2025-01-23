@@ -1,31 +1,46 @@
-name: Deploy to GitHub Pages
+name: 部署静态资源
 
 on:
+  # 当 master 分支有推送时执行
   push:
-    branches:
-      - main  # 或你自己的默认分支名称
+    branches: ["master"]
+    
+  # 允许手动运行此工作流程
+  workflow_dispatch:
+
+# 设置 GITHUB_TOKEN 的权限以允许部署到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: 切换分支
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: 设置 Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # 或你需要的 Node.js 版本
+          node-version: '20'
 
-      - name: Install dependencies
+      - name: 安装依赖
         run: npm install
 
-      - name: Build TypeScript
-        run: npx tsc  # 运行 TypeScript 编译
+      - name: 运行 TypeScript 编译
+        run: npx tsc
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: 处理文件
+        run: |
+          mv ./dist/swagger-ui-enhancer.js ./dist/index.js
+        
+      - name: 上传文件
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # 编译后的文件夹，假设你的输出目录是 ./dist
+          path: './dist'
+          
+      - name: 部署到 GitHub Pages
+        uses: actions/deploy-pages@v4
