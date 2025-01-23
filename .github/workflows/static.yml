@@ -8,13 +8,19 @@ on:
   # 允许从“操作”选项卡手动运行此工作流程
   workflow_dispatch:
 
+# 设置 GITHUB_TOKEN 的权限以允许部署到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -24,11 +30,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # 运行 TypeScript 编译
       - name: Build TypeScript
-        run: npx tsc  # 运行 TypeScript 编译
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        run: npx tsc
+        
+      - name: Upload
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # 编译后的文件夹，假设你的输出目录是 ./dist
+          path: './dist'
+          
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
