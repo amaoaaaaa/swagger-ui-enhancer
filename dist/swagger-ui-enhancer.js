@@ -1,16 +1,17 @@
 // ==UserScript==
 // @name         Swagger UI 文档辅助
 // @namespace    amao.cool
-// @version      1.0.0
+// @version      1.0.1
 // @description  给 Swagger UI 接口文档增加了一些功能，详见 https://github.com/amaoaaaaa/swagger-ui-enhancer/blob/master/README.md
 // @author       阿茂一米六
+// @license MIT
 // @match        *://*/*swagger-ui.html*
 // @icon         https://static1.smartbear.co/swagger/media/assets/swagger_fav.png
 // @require      https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js
 // @require      https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/deep-diff/1.0.2/deep-diff.min.js
 // @grant        none
-// @updateURL    脚本更新地址
-// @downloadURL  脚本下载地址
+// @updateURL    https://amaoaaaaa.github.io/swagger-ui-enhancer/index.js
+// @downloadURL  https://amaoaaaaa.github.io/swagger-ui-enhancer/index.js
 // ==/UserScript==
 (function () {
     "use strict";
@@ -49,14 +50,20 @@
             localStorage.setItem(localKey, this.value);
         });
         let configBaseUrl = "防止初始化时被 includes() 匹配到";
-        // 把 baseurl 输入框添加到页面上
-        setTimeout(() => {
-            $(".swagger-ui .info .base-url").after($baseurlInput, "<br>");
-            configBaseUrl = $(".swagger-ui .info .base-url")
+        // 获取原本的 baseurl
+        const timer = setInterval(() => {
+            const _configBaseUrl = $(".swagger-ui .info .base-url")
                 .text()
                 .replace("[ Base URL: ", "")
                 .replace(" ]", "");
-        }, 1000);
+            if (!_configBaseUrl)
+                return;
+            clearInterval(timer);
+            setTimeout(() => {
+                $(".swagger-ui .info .base-url").after($baseurlInput, "<br>");
+                configBaseUrl = _configBaseUrl;
+            }, 1000);
+        }, 100);
         // 定义新的 fetch 方法
         window.fetch = async function (...args) {
             let [resource, config] = args;
